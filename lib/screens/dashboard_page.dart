@@ -80,7 +80,10 @@ class _DashboardPageState extends State<DashboardPage> {
                   SizedBox(width: 8.0),
                   Container(
                     height: 50.0,
-                    child: Image.asset('assets/tezos-logo-short.png'),
+                    child: Image.asset(
+                      'assets/tezoslogo.png',
+                      scale: 50,
+                    ),
                   )
                 ],
               ),
@@ -164,6 +167,29 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ],
           ),
+          SizedBox(height: 28.0),
+          RaisedButton(
+            onPressed: () {},
+            color: Color(0xff4336f1),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 8.0,
+                bottom: 8.0,
+              ),
+              child: Text(
+                'Add Funds',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+          ),
           SizedBox(height: 48.0),
           Container(
               margin: EdgeInsets.only(left: 10, right: 10),
@@ -177,7 +203,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   children: [
                     Container(
                       height: 30.0,
-                      child: Image.asset('assets/tezos-logo-short.png'),
+                      child: Image.asset('assets/tezoslogo.png'),
                     ),
                     SizedBox(width: 16.0),
                     Expanded(

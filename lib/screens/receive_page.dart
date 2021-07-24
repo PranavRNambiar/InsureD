@@ -8,26 +8,34 @@ class ReceivePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.background,
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         elevation: 0,
-        backgroundColor: Palette.background,
+        backgroundColor: Colors.white,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(),
           QrImage(
-            data: str,
-            version: QrVersions.auto,
-            size: 300.0,
-            foregroundColor: Palette.primary,
-          ),
+              data: str,
+              version: QrVersions.auto,
+              size: 300.0,
+              foregroundColor: Colors.black),
           SizedBox(height: 24.0),
           Text(
             str,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.w500,
               fontSize: 14.0,

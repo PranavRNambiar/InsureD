@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'dart:io';
 
 class DocScanHomepage extends StatefulWidget {
   @override
@@ -18,7 +20,15 @@ class _DocScanHomepageState extends State<DocScanHomepage> {
                   RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),
               ))),
-          onPressed: () {},
+          onPressed: () async {
+            FilePickerResult result = await FilePicker.platform.pickFiles();
+
+            if (result != null) {
+              File file = File(result.files.single.path);
+            } else {
+              // User canceled the picker
+            }
+          },
           icon: Icon(Icons.add),
           label: Text('Add Docs')),
     );

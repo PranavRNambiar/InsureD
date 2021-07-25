@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'buypremium.dart';
 
 class PolicyPage extends StatefulWidget {
   @override
-  _PolicyPageState createState() => _PolicyPageState();
+  PolicyPageState createState() => PolicyPageState();
 }
 
-class _PolicyPageState extends State<PolicyPage> {
+class PolicyPageState extends State<PolicyPage> {
   List<String> policies = ['policy1', 'policy2', 'policy3'];
   int amount = 2;
   int yearsvalid = 0;
   @override
+  void initState() {
+    super.initState();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double screenwidth = MediaQuery.of(context).size.width;
     return DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -107,7 +115,17 @@ class _PolicyPageState extends State<PolicyPage> {
                                     'Continue',
                                     style: TextStyle(color: Colors.black),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    double a = (3000 +
+                                            amount * 1000 +
+                                            (yearsvalid + 1) * 2000) *
+                                        0.005;
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => BuyPremium(a,
+                                                yearsvalid + 1, amount, this)));
+                                  },
                                 )
                               ],
                             ))
@@ -115,16 +133,47 @@ class _PolicyPageState extends State<PolicyPage> {
                 ],
               ),
               Column(children: [
-                Container(
-                  height: 200,
-                  margin: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.blueAccent),
-                )
+                purchased
+                    ? Container(
+                        padding: EdgeInsets.all(10),
+                        width: screenwidth,
+                        margin: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.blueAccent),
+                        child: Column(
+                          children: [
+                            Text('Sum insured'),
+                            Text(
+                              '₹ $purchasesum lakhs',
+                              style: TextStyle(fontSize: 40),
+                            ),
+                            Text('Years covered'),
+                            Text(
+                              '$purchaseyears Year',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            ListTile(
+                              leading: Text('Group id:'),
+                              title: Text('$purchasegroupid'),
+                            ),
+                            ListTile(
+                              leading: Text('Premium Amount'),
+                              title: Text('$purchasepremium'),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container()
               ])
             ],
           ),
         ));
   }
 }
+
+bool purchased = false;
+int purchasesum = 2;
+int purchaseyears = 1;
+String purchasegroupid = 'saknaslnflsan';
+double purchasepremium = 7000;

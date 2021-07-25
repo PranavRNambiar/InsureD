@@ -50,16 +50,23 @@ class _LandingPageState extends State<LandingPage> {
                     SizedBox(
                       height: 8,
                     ),
-                    Text(
-                      'Wallet Balance',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20.0,
-                        letterSpacing: 1,
+                    Row(children: [
+                      Text(
+                        'Wallet Balance',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20.0,
+                          letterSpacing: 1,
+                        ),
                       ),
-                    ),
+                      IconButton(
+                          icon: Icon(Icons.refresh),
+                          onPressed: () {
+                            AppState.instance.refreshAccounts();
+                          })
+                    ]),
                     SizedBox(height: 8.0),
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -171,10 +178,10 @@ class _LandingPageState extends State<LandingPage> {
                       ),
                     ]),
                     SizedBox(height: 48.0),
-                   TransactionButton(
-                            icon: Icons.arrow_upward,
-                            text: 'Send',
-                            onClick: _handleSend),
+                    TransactionButton(
+                        icon: Icons.arrow_upward,
+                        text: 'Send',
+                        onClick: _handleSend),
                     SizedBox(height: 20),
                     Center(
                         child: Text(

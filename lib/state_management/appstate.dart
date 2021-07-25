@@ -12,6 +12,7 @@ import '../Models/operations.dart';
 import '../Networking/networking.dart';
 import '../ui/pages/import_account.dart';
 import 'package:tezster_dart/tezster_dart.dart';
+import 'package:insured/homepage.dart';
 
 class AppState {
   AppState._();
@@ -103,7 +104,7 @@ class AppState {
     return 'Something Went Wrong!';
   }
 
-  void makeTransaction(String account, double ammount) async {
+  makeTransaction(String account, double ammount) async {
     showProgress();
 
     List<String> keys = getSelectedAccountkeys();
@@ -115,7 +116,6 @@ class AppState {
 
     var signer = await TezsterDart.createSigner(
         TezsterDart.writeKeyWithHint(keyStore.secretKey, 'edsk'));
-
     var result = await TezsterDart.sendTransactionOperation(
       networksChains[selectedNetwork],
       signer,
@@ -124,8 +124,17 @@ class AppState {
       (ammount * 1000000).toInt(),
       10000,
     );
-
-    dismissprogress();
+    print(result["appliedOp"]["contents"][0]["metadata"]["operation_result"]
+        ["status"]);
+    if (result["appliedOp"]["contents"][0]["metadata"]["operation_result"]
+            ["status"] ==
+        'applied') {
+      dismissprogress();
+      return true;
+    } else {
+      dismissprogress();
+      return false;
+    }
   }
 
   Future<void> refreshAccounts() async {

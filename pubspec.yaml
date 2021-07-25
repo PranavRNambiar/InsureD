@@ -22,7 +22,8 @@ environment:
 
 dependencies:
   file_picker:
-  tezster_dart: ^2.1.1
+  tezster_dart: 
+    git: https://github.com/SushantChandla/Tezster_dart.git
   flutter_webview_plugin: ^0.3.11
   flutter_inappwebview: ^4.0.0
   permission_handler: ^5.0.0

@@ -172,7 +172,7 @@ class _LandingPageState extends State<LandingPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SendTransactionPage()));
+                                  builder: (context) => ReceivePage()));
                         },
                         color: Color(0xff4336f1),
                         shape: RoundedRectangleBorder(

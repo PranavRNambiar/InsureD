@@ -15,14 +15,12 @@ class _ReceivePageState extends State<ReceivePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurpleAccent,
-        centerTitle: true,
-        title: Text(
-          'Wally XTZ',
-        ),
+        elevation: 0,
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
+            color: Colors.black,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -32,17 +30,6 @@ class _ReceivePageState extends State<ReceivePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              color: Colors.deepPurple[200],
-              padding: EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.qr_code),
-                  Text('Receive Page'),
-                ],
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
@@ -81,8 +68,8 @@ class _ReceivePageState extends State<ReceivePage> {
                                 SnackBar(content: Text('Copied To clipboard')));
                           },
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  Colors.deepPurple[400])),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.black)),
                           child: Row(
                             children: [
                               Icon(Icons.copy),

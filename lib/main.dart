@@ -1,64 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'model/wallet.dart';
-import 'screens/dashboard_page.dart';
-
-import 'screens/initial_page.dart';
+import 'state_management/appstate.dart';
+import 'ui/pages/landing.dart';
+import 'package:tezster_dart/tezster_dart.dart';
 import 'homepage.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final appDocDir = await getApplicationDocumentsDirectory();
-  Hive.init(appDocDir.path);
-  Hive.registerAdapter(WalletAdapter());
-  runApp(MyApp());
+  AppState.instance.init();
+  runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  bool isAvailable;
-
-  getPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isAvailable = prefs.getBool('isAvailable');
-    });
-  }
-
-  @override
-  void initState() {
-    getPrefs();
-    super.initState();
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Teza',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'Montserrat',
-      ),
-      debugShowCheckedModeBanner: false,
-      home: FutureBuilder(
-          future: Hive.openBox<Wallet>('wallet'),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              print('IS AVAILABLE: $isAvailable');
-              if (isAvailable != null && isAvailable) {
-                return MyHomePage();
-              } else {
-                return InitialPage();
-              }
-            }
-            return Container();
-          }),
-    );
+    return StreamBuilder<bool>(
+        stream: AppState.instance.updatesStream,
+        builder: (context, snapshot) {
+          return MaterialApp(
+            navigatorKey: AppState.naviagtorKey,
+            title: 'Wally XTZ',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: MyHomePage(),
+          );
+        });
   }
 }

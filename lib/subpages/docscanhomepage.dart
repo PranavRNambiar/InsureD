@@ -12,6 +12,9 @@ class _DocScanHomepageState extends State<DocScanHomepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      body: Column(
+        children: [],
+      ),
       floatingActionButton: ElevatedButton.icon(
           style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),

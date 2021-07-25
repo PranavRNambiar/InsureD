@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'subpages/policypage.dart';
 import 'subpages/docscanhomepage.dart';
 import 'subpages/profilepage.dart';
-import 'screens/dashboard_page.dart';
+import 'ui/pages/landing.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
           body: TabBarView(
-            children: [PolicyPage(), DocScanHomepage(), DashboardPage()],
+            children: [PolicyPage(), DocScanHomepage(), LandingPage()],
           ),
         ));
   }

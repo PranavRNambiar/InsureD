@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../state_management/appstate.dart';
 import 'package:tezster_dart/tezster_dart.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MnemonicView extends StatefulWidget {
   const MnemonicView({Key key, this.afterImport}) : super(key: key);
@@ -72,7 +73,7 @@ class _MnemonicViewState extends State<MnemonicView> {
             SizedBox(height: 20),
             CupertinoButton(
               color: Colors.black,
-              child: Text('Create Wallet'),
+              child: Text('Continue'),
               onPressed: () async {
                 AppState.instance.showProgress();
                 try {
@@ -85,6 +86,9 @@ class _MnemonicViewState extends State<MnemonicView> {
                     return;
                   }
                   AppState.instance.addAccount(keys);
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.setString('seedphrase', mneomics.text);
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Something went Wrong')));

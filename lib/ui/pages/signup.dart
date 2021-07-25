@@ -3,6 +3,7 @@ import '../../ui/pages/landing.dart';
 import '../../ui/widgets/import_account/fundraiser_view.dart';
 import '../../ui/widgets/import_account/mnemonic_view.dart';
 import '../../ui/widgets/import_account/private_keyview.dart';
+import 'package:insured/homepage.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key key, this.firstLogin = false}) : super(key: key);
@@ -52,7 +53,7 @@ class _SignupState extends State<Signup> {
   void afterImport() {
     if (widget.firstLogin) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LandingPage()));
+          context, MaterialPageRoute(builder: (context) => MyHomePage()));
     } else {
       Navigator.pop(context);
     }

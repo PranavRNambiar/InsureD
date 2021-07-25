@@ -7,6 +7,10 @@ import '../../ui/pages/send_transation.dart';
 import '../../ui/widgets/landing_page/operationview.dart';
 import '../../ui/widgets/landing_page/transaction_buttons.dart';
 import '../../ui/widgets/topbar.dart';
+import 'package:tezster_dart/tezster_dart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+import 'viewtransactions.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key key}) : super(key: key);
@@ -24,6 +28,7 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenwidth = MediaQuery.of(context).size.width;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -103,16 +108,23 @@ class _LandingPageState extends State<LandingPage> {
                       ),
                     ),
                     Row(children: [
-                      Text(
-                        AppState.instance.getAccountAddressCurrent(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.0,
-                          letterSpacing: 1,
-                        ),
-                      ),
+                      SafeArea(
+                          child: Center(
+                              child: Container(
+                                  width: screenwidth / 1.5,
+                                  child: FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: Text(
+                                        AppState.instance
+                                            .getAccountAddressCurrent(),
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Montserrat',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14.0,
+                                          letterSpacing: 1,
+                                        ),
+                                      ))))),
                       IconButton(
                           icon: Icon(Icons.copy),
                           onPressed: () {
@@ -127,8 +139,12 @@ class _LandingPageState extends State<LandingPage> {
                     SizedBox(height: 28.0),
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       RaisedButton(
-                        onPressed: () {
-                          print(AppState.instance.selectedNetwork);
+                        onPressed: () async {
+                          // SharedPreferences prefs =
+                          //     await SharedPreferences.getInstance();
+                          // String seedphrase = prefs.getString('seedphrase');
+                          // print(seedphrase);
+                          AppState.instance.createcontract();
                         },
                         color: Color(0xff4336f1),
                         shape: RoundedRectangleBorder(
@@ -178,25 +194,20 @@ class _LandingPageState extends State<LandingPage> {
                       ),
                     ]),
                     SizedBox(height: 48.0),
-                    TransactionButton(
-                        icon: Icons.arrow_upward,
-                        text: 'Send',
-                        onClick: _handleSend),
+                    Container(
+                        width: screenwidth, height: 5, color: Colors.black),
                     SizedBox(height: 20),
                     Center(
-                        child: Text(
-                      'Operations',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                        child: CupertinoButton(
+                      color: Colors.greenAccent,
+                      child: Text('View Transactions'),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ViewTransactions()));
+                      },
                     )),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 20),
-                      child: Divider(
-                        color: Colors.deepPurpleAccent[200],
-                      ),
-                    ),
-                    OperationsView(),
                   ],
                 )),
           )),

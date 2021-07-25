@@ -6,6 +6,7 @@ import 'homepage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  TezsterDart.init();
   AppState.instance.init();
   runApp(const MyApp());
 }

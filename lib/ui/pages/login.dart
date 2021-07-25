@@ -42,7 +42,9 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 20,
             ),
-            PrivateKey()
+            MnemonicView(
+              afterImport: afterImport,
+            ),
           ],
         ),
       ),

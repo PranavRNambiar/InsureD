@@ -137,6 +137,47 @@ class AppState {
     }
   }
 
+  createcontract() async {
+    List<String> keys = getSelectedAccountkeys();
+    var keyStore = KeyStoreModel(
+      publicKey: keys[1],
+      secretKey: keys[0],
+      publicKeyHash: keys[2],
+    );
+
+    var server = '';
+
+    var contract =
+        """parameter string;
+    storage string;
+    code { DUP;
+        DIP { CDR ; NIL string ; SWAP ; CONS } ;
+        CAR ; CONS ;
+        CONCAT;
+        NIL operation; PAIR}""";
+
+    var storage = '"Sample"';
+
+    var signer = await TezsterDart.createSigner(
+        TezsterDart.writeKeyWithHint(keyStore.secretKey, 'edsk'));
+
+    var result = await TezsterDart.sendContractOriginationOperation(
+      networksChains[selectedNetwork],
+      signer,
+      keyStore,
+      0,
+      null,
+      100000,
+      1000,
+      100000,
+      contract,
+      storage,
+      codeFormat: TezosParameterFormat.Michelson,
+    );
+
+    print("Operation groupID ===> $result['operationGroupID']");
+  }
+
   Future<void> refreshAccounts() async {
     showProgress();
     List<Accounts> temp = [];

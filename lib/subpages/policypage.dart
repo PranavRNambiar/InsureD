@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'buypremium.dart';
+import '../state_management/appstate.dart';
 
 class PolicyPage extends StatefulWidget {
   @override
@@ -135,7 +136,7 @@ class PolicyPageState extends State<PolicyPage> {
               Column(children: [
                 purchased
                     ? Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(20),
                         width: screenwidth,
                         margin: EdgeInsets.all(20),
                         decoration: BoxDecoration(
@@ -161,6 +162,15 @@ class PolicyPageState extends State<PolicyPage> {
                               leading: Text('Premium Amount'),
                               title: Text('$purchasepremium'),
                             ),
+                            CupertinoButton(
+                                color: Colors.white,
+                                child: Text(
+                                  'CLAIM',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                onPressed: () {
+                                  AppState.instance.createcontract();
+                                })
                           ],
                         ),
                       )

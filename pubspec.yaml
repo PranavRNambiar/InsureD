@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  open_file: ^3.2.1
   file_picker:
   tezster_dart: 
     git: https://github.com/SushantChandla/Tezster_dart.git
